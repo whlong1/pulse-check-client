@@ -1,16 +1,15 @@
 .container {
   display: flex;
-  flex-flow: column nowrap;
-  justify-content: center;
+  flex-flow: column;
   align-items: center;
-  margin-bottom: 50px;
 }
 
 .label,
 .button {
-  margin-right: 0.5rem;
+  margin-right: .5rem;
 }
 
 .inputContainer {
   margin-bottom: 1rem;
 }
+  

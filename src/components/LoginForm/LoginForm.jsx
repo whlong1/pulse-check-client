@@ -3,27 +3,28 @@ import { Link, useNavigate } from 'react-router-dom'
 import styles from './LoginForm.module.css'
 import * as authService from '../../services/authService'
 
-const LoginForm = props => {
-  const [formData, setFormData] = useState({
-    email: '',
-    pw: '',
-  })
+const LoginForm = (props) => {
   const navigate = useNavigate()
 
-  const handleChange = e => {
-    props.updateMessage('')
-    setFormData({ ...formData, [e.target.name]: e.target.value })
+  const [formData, setFormData] = useState({
+    email: '',
+    password: '',
+  })
+
+  const handleChange = evt => {
+    setFormData({ ...formData, [evt.target.name]: evt.target.value })
   }
 
-  const handleSubmit = async evt => {
+  const handleSubmit = evt => {
     evt.preventDefault()
-    try {
-      await authService.login(formData)
-      props.handleSignupOrLogin()
-      navigate('/')
-    } catch (err) {
-      props.updateMessage(err.message)
-    }
+    authService.login(formData)
+      .then(() => {
+        props.handleSignupOrLogin()
+        navigate('/')
+      })
+      .catch(err => {
+        alert('Invalid Credentials')
+      })
   }
 
   return (
@@ -33,24 +34,28 @@ const LoginForm = props => {
       className={styles.container}
     >
       <div className={styles.inputContainer}>
-        <label htmlFor="email" className={styles.label}>Email</label>
+        <label htmlFor="email-input" className={styles.label}>
+          Email
+        </label>
         <input
           type="text"
           autoComplete="off"
-          id="email"
+          id="email-input"
           value={formData.email}
           name="email"
           onChange={handleChange}
         />
       </div>
       <div className={styles.inputContainer}>
-        <label htmlFor="password" className={styles.label}>Password</label>
+        <label htmlFor="password-input" className={styles.label}>
+          Password
+        </label>
         <input
           type="password"
           autoComplete="off"
-          id="password"
-          value={formData.pw}
-          name="pw"
+          id="password-input"
+          value={formData.password}
+          name="password"
           onChange={handleChange}
         />
       </div>
