@@ -1,4 +1,5 @@
 import { useReducer } from 'react'
+import { motion } from "framer-motion"
 import './Instance.css'
 
 const colorStages = [
@@ -22,11 +23,13 @@ const reducer = (state, action) => {
     case 'r':
       return {
         ...state,
+        prevColor: colorStages[state.index],
         index: state.index < 12 ? state.index + 1 : 12
       }
     case 'b':
       return {
         ...state,
+        prevColor: colorStages[state.index],
         index: state.index > 0 ? state.index - 1 : 0
       }
     default: {
@@ -36,12 +39,12 @@ const reducer = (state, action) => {
 }
 
 const iState = {
-  index: 0
+  index: 0,
+  prevColor: '#3EABEB'
 }
 
 const Instance = () => {
   const [state, dispatch] = useReducer(reducer, iState)
-
   console.log('stage:', colorStages[state.index])
 
   const style = {
@@ -55,7 +58,18 @@ const Instance = () => {
     <div>
       <button onClick={() => dispatch({ type: 'b' })}>Reset</button>
       <button onClick={() => dispatch({ type: 'r' })}>Help!</button>
-      <div style={style}></div>
+      <motion.div
+        style={style}
+        animate={{
+          opacity: [0, 1],
+          backgroundColor: [`${state.prevColor}`, `${colorStages[state.index]}`],
+        }}
+        transition={{
+          duration: 2,
+          type: "spring",
+          ease: "easeInOut",
+        }}
+      />
     </div>
   )
 }
