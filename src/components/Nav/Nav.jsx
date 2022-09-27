@@ -10,6 +10,7 @@ const Nav = ({ user, handleLogout }) => {
 			<ul>
 				<li><NavLink to="/login">Log In</NavLink></li>
 				<li><NavLink to="/signup">Sign Up</NavLink></li>
+				<li><NavLink to="/instance">Instance</NavLink></li>
 			</ul>
 			<button onClick={handleLogout}>Logout</button>
 		</nav>

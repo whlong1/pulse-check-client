@@ -4,6 +4,7 @@ import { Routes, Route } from 'react-router-dom'
 import Login from '../pages/Login/Login'
 import Signup from '../pages/Signup/Signup'
 import Lesson from '../components/Lesson/Lesson'
+import Instance from '../components/Instance/Instance'
 
 const Router = ({ handleSignupOrLogin }) => {
   return (
@@ -19,6 +20,10 @@ const Router = ({ handleSignupOrLogin }) => {
       <Route
         path="/login"
         element={<Login handleSignupOrLogin={handleSignupOrLogin} />}
+      />
+      <Route
+        path="/instance"
+        element={<Instance />}
       />
     </Routes>
   )
